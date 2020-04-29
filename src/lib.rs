@@ -14,23 +14,29 @@ extern crate serde_json;
    3) derive example to demonstrate clock skew and correction
 */
 
-struct MessageExchange;
+pub struct MessageExchange;
 impl MessageExchange {
-   pub fn publish(descriptor_prefix: &str) -> Outbox {
+   pub fn new() -> MessageExchange {
+      MessageExchange {}
+   }
+   pub fn publish(&self, descriptor_prefix: &str) -> Outbox {
       Outbox {}
    }
-   pub fn subscribe(selector_prefix: &str, inbox: &Inbox) {
+   pub fn subscribe(&self, selector_prefix: &str, inbox: &Inbox) {
    }
 }
 
-struct Outbox;
+pub struct Outbox;
 impl Outbox {
-   pub fn push(descriptor_suffix: &str, msg: &serde_json::Value) {
+   pub fn push(&self, descriptor_suffix: &str, msg: &serde_json::Value) {
    }
 }
 
-struct Inbox;
-/* pub impl Inbox {
-   pub fn new(selector_suffix: &str, callback: ?) -> Inbox {
+pub struct Inbox;
+impl Inbox {
+   pub fn new<F>(selector_suffix: &str, callback: F) -> Inbox
+   where F: Fn(&serde_json::Value)
+   {
+      Inbox {}
    }
-} */
+}

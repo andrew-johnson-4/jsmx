@@ -24,6 +24,7 @@ lto = true
 # The `wasm-bindgen` crate provides the bare minimum functionality needed
 # to interact with JavaScript.
 wasm-bindgen = "0.2.45"
+serde_json = "1.0.0"
 jsmx = {path = "../../"}
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
