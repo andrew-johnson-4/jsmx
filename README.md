@@ -14,7 +14,7 @@ PubSub Message Passing for Rust WASM
 
 **selector suffix**: the second part of the inbox feed address
 
-**callback**: a function that will be called when a message is received
+**callback**: a function that will be called when a message is routed to this endpoint
 
 
 **Outbox**: a feed where related messages can be published
