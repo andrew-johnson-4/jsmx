@@ -1,28 +1,22 @@
 extern crate serde_json;
+use std::collections::HashMap;
 
-/*
-   TODO:
-   1) define pub sub actor Message Exchange protocols
-     a) MessageExchange
-        * publish(descriptor_prefix) -> Outbox
-        * subscribe(selector, Inbox)
-     b) Outbox
-        * push(descriptor_suffix, json message)
-     c) Inbox
-        * new(selector, callback) -> Inbox
-   2) define setInterval as a message exchange
-   3) derive example to demonstrate clock skew and correction
-*/
-
-pub struct MessageExchange;
+pub struct MessageExchange {
+   boxes: HashMap<String, Vec<Inbox>>
+}
 impl MessageExchange {
    pub fn new() -> MessageExchange {
-      MessageExchange {}
+      MessageExchange {
+         boxes: HashMap::new()
+      }
    }
    pub fn publish(&self, descriptor_prefix: &str) -> Outbox {
       Outbox {}
    }
-   pub fn subscribe(&self, selector_prefix: &str, inbox: &Inbox) {
+   pub fn subscribe(&mut self, selector_prefix: &str, inbox: &Inbox) {
+      if !self.boxes.contains_key(selector_prefix) {
+         self.boxes.insert(selector_prefix.to_string(), Vec::new());
+      }
    }
 }
 
@@ -32,11 +26,17 @@ impl Outbox {
    }
 }
 
-pub struct Inbox;
+pub struct Inbox {
+   selector_suffix: String,
+   callback: Box<dyn Fn(&serde_json::Value)>
+}
 impl Inbox {
    pub fn new<F>(selector_suffix: &str, callback: F) -> Inbox
-   where F: Fn(&serde_json::Value)
+   where F: 'static + Fn(&serde_json::Value)
    {
-      Inbox {}
+      Inbox {
+         selector_suffix: selector_suffix.to_string(),
+         callback: Box::new(callback)
+      }
    }
 }
