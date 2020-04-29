@@ -3,12 +3,12 @@ PubSub Message Passing for Rust WASM
 
 ## Vocabulary
 
-**Message Exchange**: A hub for incoming and outgoing messages
+**Message Exchange**: a hub for incoming and outgoing messages
 
 **Message**: a json object
 
 
-**Inbox**: A subscription to a message exchange feed
+**Inbox**: a subscription to a message exchange feed
 
 **selector prefix**: the first part of the inbox feed address
 
@@ -17,7 +17,7 @@ PubSub Message Passing for Rust WASM
 **callback**: a function that will be called when a message is received
 
 
-**Outbox**: A feed where related messages can be published
+**Outbox**: a feed where related messages can be published
 
 **descriptor prefix**: the first part of the outbox feed route
 
