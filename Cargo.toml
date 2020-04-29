@@ -1,6 +1,6 @@
 [package]
 name = "jsmx"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Andrew <andrew@subarctic.org>"]
 license = "MIT"
 description = "PubSub Message Passing for Rust WASM"
