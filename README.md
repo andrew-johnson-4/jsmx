@@ -1,5 +1,5 @@
 # jsmx
-PubSub Message Passing for Rust WASM
+PubSub Message Passing for Rust with JSON
 
 ## Vocabulary
 
