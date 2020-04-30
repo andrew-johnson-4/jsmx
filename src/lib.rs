@@ -2,17 +2,27 @@
 extern crate serde_json;
 use serde_json::{Value};
 use std::collections::HashMap;
+use std::sync::Mutex;
 use std::rc::Rc;
+use std::sync::Arc;
 
-pub struct SharedExchange;
+pub struct SharedExchange {
+   boxes: Mutex<HashMap<String, HashMap<String,Arc<Box<dyn Fn(&serde_json::Value) + Send + Sync>>>>>
+}
 impl SharedExchange {
    pub fn new() -> SharedExchange {
-      SharedExchange {}
+      SharedExchange {
+         boxes: Mutex::new(HashMap::new())
+      }
    }
-   pub fn push(&self, _descriptor_prefix: &str, _descriptor_suffix: &str, _msg: &Value) {
+   pub fn push(&self, descriptor_prefix: &str, descriptor_suffix: &str, msg: &Value) {
+       if let Some(inbox) = self.boxes.lock().unwrap().get(descriptor_prefix) {
+       if let Some(callback) = inbox.get(descriptor_suffix) {
+          callback(msg);
+       }}
    }
    pub fn listen<F>(&self, _selector_prefix: &str, _selector_suffix: &str, _callback: F)
-      where F: 'static + FnMut(&Value) {
+      where F: FnMut(&Value) + 'static + Send + Sync {
    }
 }
 
