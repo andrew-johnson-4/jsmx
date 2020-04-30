@@ -1,0 +1,16 @@
+[package]
+name = "busy"
+description = "My super awesome Rust, WebAssembly, and Webpack project!"
+version = "0.1.0"
+authors = ["Andrew Johnson <andrew@subarctic.org>"]
+categories = ["wasm"]
+readme = "README.md"
+edition = "2018"
+
+[[bin]]
+name = "busy"
+path = "busy.rs"
+
+[dependencies]
+serde_json = "1.0.0"
+jsmx = {path = "../../"}
