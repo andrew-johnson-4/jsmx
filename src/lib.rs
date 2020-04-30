@@ -1,6 +1,24 @@
+#[macro_use] extern crate lazy_static;
 extern crate serde_json;
+use serde_json::{Value};
 use std::collections::HashMap;
 use std::rc::Rc;
+
+pub struct SharedExchange;
+impl SharedExchange {
+   pub fn new() -> SharedExchange {
+      SharedExchange {}
+   }
+   pub fn push(&self, _descriptor_prefix: &str, _descriptor_suffix: &str, _msg: &Value) {
+   }
+   pub fn listen<F>(&self, _selector_prefix: &str, _selector_suffix: &str, _callback: F)
+      where F: 'static + FnMut(&Value) {
+   }
+}
+
+lazy_static! {
+   pub static ref JSMX_EXCHANGE: SharedExchange = SharedExchange::new();
+}
 
 pub struct MessageExchange {
    boxes: HashMap<String, Vec<Inbox>>

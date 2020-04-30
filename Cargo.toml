@@ -1,6 +1,6 @@
 [package]
 name = "jsmx"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["Andrew <andrew@subarctic.org>"]
 license = "MIT"
 description = "PubSub Message Passing for Rust WASM"
@@ -10,3 +10,4 @@ repository = "https://github.com/andrew-johnson-4/jsmx"
 
 [dependencies]
 serde_json = "1.0"
+lazy_static = "1.4.0"
