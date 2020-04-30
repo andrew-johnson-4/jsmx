@@ -30,8 +30,8 @@ impl SharedExchange {
          boxes.insert(selector_prefix.to_string(), HashMap::new());
        }
        if let Some(inbox) = boxes.get_mut(selector_prefix) {
-       if !inbox.contains_key(selector_prefix) {
-         inbox.insert(selector_prefix.to_string(), Vec::new());
+       if !inbox.contains_key(selector_suffix) {
+         inbox.insert(selector_suffix.to_string(), Vec::new());
        }
        if let Some(callbacks) = inbox.get_mut(selector_suffix) {
           callbacks.push(Arc::new(Box::new(callback)));
