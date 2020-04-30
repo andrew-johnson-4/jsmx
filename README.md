@@ -5,6 +5,8 @@ PubSub Message Passing for Rust WASM
 
 **Message Exchange**: a hub for incoming and outgoing messages
 
+**Shared Exchange**: a thread-safe hub for incoming and outgoing messages
+
 **Message**: a json object
 
 
