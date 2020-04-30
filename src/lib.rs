@@ -7,7 +7,7 @@ use std::rc::Rc;
 use std::sync::Arc;
 
 pub struct SharedExchange {
-   boxes: Mutex<HashMap<String, HashMap<String,Arc<Box<dyn Fn(&serde_json::Value) + Send + Sync>>>>>
+   boxes: Mutex<HashMap<String, HashMap<String,Vec<Arc<Box<dyn Fn(&Value) + 'static + Send + Sync>>>>>>
 }
 impl SharedExchange {
    pub fn new() -> SharedExchange {
@@ -17,12 +17,25 @@ impl SharedExchange {
    }
    pub fn push(&self, descriptor_prefix: &str, descriptor_suffix: &str, msg: &Value) {
        if let Some(inbox) = self.boxes.lock().unwrap().get(descriptor_prefix) {
-       if let Some(callback) = inbox.get(descriptor_suffix) {
-          callback(msg);
+       if let Some(callbacks) = inbox.get(descriptor_suffix) {
+          for cb in callbacks.iter() {
+             cb(msg);
+          }
        }}
    }
-   pub fn listen<F>(&self, _selector_prefix: &str, _selector_suffix: &str, _callback: F)
-      where F: FnMut(&Value) + 'static + Send + Sync {
+   pub fn listen<F>(&self, selector_prefix: &str, selector_suffix: &str, callback: F)
+      where F: Fn(&Value) + 'static + Send + Sync {
+       let mut boxes = self.boxes.lock().unwrap();
+       if !boxes.contains_key(selector_prefix) {
+         boxes.insert(selector_prefix.to_string(), HashMap::new());
+       }
+       if let Some(inbox) = boxes.get_mut(selector_prefix) {
+       if !inbox.contains_key(selector_prefix) {
+         inbox.insert(selector_prefix.to_string(), Vec::new());
+       }
+       if let Some(callbacks) = inbox.get_mut(selector_suffix) {
+          callbacks.push(Arc::new(Box::new(callback)));
+       }}
    }
 }
 
