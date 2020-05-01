@@ -1,6 +1,11 @@
 # jsmx
 PubSub Message Passing for Rust with JSON
 
+## Motivation
+
+JSMX is intended for use as a simple message exchange provided that all messaging is serialized as json objects.
+Allowed these restrictions, the message exchange shall obviate the creation, management, and destruction of necessary mutexes and channels.
+
 ## Vocabulary
 
 **Message Exchange**: a hub for incoming and outgoing messages
