@@ -32,3 +32,6 @@ Allowed these restrictions, the message exchange shall obviate the creation, man
 
 
 
+## Contribution
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in jsmx by you,
+shall be licensed under the MIT license without any additional terms or conditions.
