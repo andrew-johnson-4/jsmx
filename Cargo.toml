@@ -1,8 +1,8 @@
 [package]
 name = "jsmx"
-version = "0.3.3"
+version = "0.3.4"
 authors = ["Andrew <andrew@subarctic.org>"]
-license = "MIT"
+license = "MIT OR Apache-2.0"
 description = "PubSub Message Passing for Rust with JSON"
 edition = "2018"
 readme = "README.md"
